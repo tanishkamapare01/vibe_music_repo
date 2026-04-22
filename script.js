@@ -211,6 +211,7 @@ document.getElementById("navMoods").onclick = function () {
   document.getElementById("profileCard").style.display = "none";
   document.getElementById("feedbackSection").classList.add("hidden");
   visitSection.classList.add("hidden");
+  hideBack();
 };
 
 document.getElementById("navVibes").onclick = function () {
@@ -231,6 +232,7 @@ document.getElementById("navLogin").onclick = function () {
   document.getElementById("profileCard").style.display = "none";
   document.getElementById("feedbackSection").classList.add("hidden");
   visitSection.classList.add("hidden");
+  hideBack();
 };
 document.getElementById("navFeedback").onclick = function () {
   document.getElementById("landing").style.display = "none";
