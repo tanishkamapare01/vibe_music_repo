@@ -250,7 +250,7 @@ function playVideo(id) {
 }
 
 function shareSite() {
-  const url = "https://wondrous-lolly-7c8efc.netlify.app/";
+  const url = "https://tanishkamapare01.github.io/vibe_music_repo/";
 
   if (navigator.share) {
     navigator.share({
