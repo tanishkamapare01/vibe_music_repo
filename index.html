@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vibe — Mood Music & Activity Recommender</title>
+  <meta name="description" content="Discover music, activities and quotes tailored to your mood." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Nunito:wght@400;600;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- floating background blobs -->
+  <div class="blobs" aria-hidden="true">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+    <span class="blob b3"></span>
+    <span class="blob b4"></span>
+  </div>
+
+  <!-- top brand bar -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <span class="brand-name gradient-text">vibe</span>
+    </div>
+    <nav class="nav glass">
+      <a id="navMoods">moods</a>
+<a id="navVibes">vibes</a>
+ <a id="navVisit">visiting</a>
+ <a id="navFeedback">feedback</a>
+<a id="navLogin">login</a>
+    </nav>
+    <button id="themeToggle" class="theme-btn">🌙</button>
+  </header>
+   <button id="backBtn" class="back-btn">← Back</button>
+  <main>
+    <!-- LANDING -->
+    <section id="landing" class="landing" style="display: none;">
+      <div class="pill glass">
+        <svg viewBox="0 0 24 24" class="icon-sm"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z" fill="currentColor"/></svg>
+        <span class="gradient-text">your daily vibe check</span>
+      </div>
+      <h1 class="title">How are you <span class="gradient-text">feeling</span> today?</h1>
+      <p class="subtitle">Pick your mood and we'll curate music, activities, and a little something to lift your soul.</p>
+
+      <div id="moodGrid" class="mood-grid">
+        <button id="happyBtn" data-mood="Happy" class="mood-card glass">
+          <div class="mood-icon happy">
+            <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#fcd34d"/><circle cx="22" cy="26" r="3.5" fill="#1e1033"/><circle cx="42" cy="26" r="3.5" fill="#1e1033"/><path d="M20 38c3 6 9 10 12 10s9-4 12-10" stroke="#1e1033" stroke-width="3.5" stroke-linecap="round" fill="none"/></svg>
+          </div>
+          <span>Happy</span>
+        </button>
+        <button id="sadBtn" data-mood="Sad" class="mood-card glass">
+          <div class="mood-icon sad">
+            <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#a5b4fc"/><circle cx="22" cy="30" r="2.5" fill="#1e1033"/><circle cx="42" cy="30" r="2.5" fill="#1e1033"/><path d="M22 46c3-5 9-7 12-7s9 2 12 7" stroke="#1e1033" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+          </div>
+          <span>Sad</span>
+        </button>
+        <button id="stressedBtn" data-mood="Stressed" class="mood-card glass">
+          <div class="mood-icon stressed">
+            <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#fb7185"/><path d="M18 24l8 4M18 28l8-4" stroke="#1e1033" stroke-width="3" stroke-linecap="round"/><path d="M38 24l8 4M38 28l8-4" stroke="#1e1033" stroke-width="3" stroke-linecap="round"/><path d="M20 44c4-2 8-2 12-2s8 0 12 2" stroke="#1e1033" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+          </div>
+          <span>Stressed</span>
+        </button>
+        <button id="boredBtn" data-mood="Bored" class="mood-card glass">
+          <div class="mood-icon bored">
+            <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#c4b5fd"/><path d="M18 26h10M36 26h10" stroke="#1e1033" stroke-width="3" stroke-linecap="round"/><path d="M22 42h20" stroke="#1e1033" stroke-width="3" stroke-linecap="round"/></svg>
+          </div>
+          <span>Bored</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <section id="resultSection" class="result hidden">
+      <div class="result-inner">
+        <div class="block glass-strong">
+          <h2>Songs for your mood</h2>
+          <div id="videoContainer"></div>
+        </div>
+        <div class="block glass-strong">
+          <h2>Things you can do</h2>
+          <div id="activityContainer" class="grid-4"></div>
+        </div>
+        <div class="block glass-strong">
+          <h2>A little message for you</h2>
+          <div id="quoteContainer" class="quote-wrap"></div>
+        </div>
+      </div>
+    </section>
+
+   <!-- PROFILE -->
+<section id="profileCard" class="profile" style="display: none;">
+  <div class="card glass-strong">
+    <div class="avatar"></div>
+    <div class="profile-info">
+      <p class="muted">vibe member</p>
+      <h3 id="userName">Your Name</h3>
+      <p class="muted">most-selected mood: <span id="topMood">—</span></p>
+      <p class="vibe">Your vibe: <span class="gradient-text">soft chaos with a sprinkle of sparkle</span></p>
+    </div>
+  </div>
+</section>
+
+    <!-- LOGIN -->
+    <section id="loginSection" class="login">
+      <div class="card glass-strong login-card">
+        <div class="login-head">
+          <div class="logo-circle">V</div>
+          <h2>welcome back</h2>
+          <p class="muted">log in to save your vibe history</p>
+        </div>
+        <form onsubmit="event.preventDefault()">
+          <label for="email">email</label>
+          <input id="email" type="email" placeholder="you@vibe.com" />
+          <label for="password">password</label>
+          <input id="password" type="password" placeholder="••••••••" />
+          <div class="row">
+            <button id="loginBtn" type="button" class="btn btn-primary">Log in</button>
+            <button id="signupBtn" type="button" class="btn btn-ghost">Sign up</button>
+          </div>
+        </form>
+      </div>
+    </section>
+    <!-- SETUP -->
+<section id="setupSection" style="display: none;" class="login">
+  <div class="card glass-strong login-card">
+    <div class="login-head">
+      <h2>tell us about you ✨</h2>
+      <p class="muted">so we can personalize your vibe</p>
+    </div>
+
+    <input id="nameInput" placeholder="your name" />
+    
+    <select id="favMood">
+      <option value="">select your vibe</option>
+      <option value="happy">happy</option>
+      <option value="sad">low energy</option>
+      <option value="stressed">tensed</option>
+      <option value="bored">dull</option>
+    </select>
+
+    <input id="favActivity" placeholder="what you enjoy?" />
+
+    <button id="saveProfileBtn" type="button" class="btn btn-primary">
+      continue →
+    </button>
+  </div>
+</section>
+
+   
+
+    <section id="feedbackSection" class="feedback hidden">
+  <div class="card glass-strong feedback-card">
+    <h3>did this help you?</h3>
+    <p class="muted">tap below — we read every vibe</p>
+
+    <div id="feedbackButtons" class="row center feedback-actions">
+      <button id="likeBtn" type="button" class="btn btn-primary feedback-btn">yes</button>
+      <button id="dislikeBtn" type="button" class="btn btn-ghost feedback-btn">not really</button>
+    </div>
+
+    <p id="feedbackAck" class="feedback-ack hidden"></p>
+
+    <div id="feedbackIssueBox" class="feedback-issue hidden">
+      <textarea id="feedbackIssue" placeholder="Tell us what went wrong?"></textarea>
+      <button id="sendIssueBtn" type="button" class="btn btn-primary">Send</button>
+    </div>
+  </div>
+</section>
+
+    <section id="visitSection" class="visit-section hidden">
+  <div class="visit-card">
+    <div class="visit-left">
+      <div class="visit-label">Digital Visiting Card</div>
+      <h2 class="visit-title">Vibe — Mood Music & Activity Recommender</h2>
+      <p class="visit-sub">
+        Discover songs, activities and quotes based on your mood.
+      </p>
+
+      <div class="visit-btns">
+  <button class="visit-btn primary" onclick="shareSite()">
+    Share Website 🔗
+  </button>
+</div>
+
+     
+    </div>
+
+    <div class="visit-right">
+      <div class="visit-meta">
+        <span>Website</span>
+        <a href="https://wondrous-lolly-7c8efc.netlify.app/" target="_blank" rel="noopener">
+          https://wondrous-lolly-7c8efc.netlify.app/
+        </a>
+      </div>
+
+      <div class="visit-meta">
+        <span>Email</span>
+        <a href="mailto:vibe@example.com">vibe@example.com</a>
+      </div>
+
+      <div class="visit-meta">
+        <span>Tagline</span>
+        <p>Feel your mood. Play your vibe.</p>
+      </div>
+
+      <div class="visit-box">
+        <strong>What this card is for</strong>
+       <p>
+This card allows users to quickly access, share or copy the Vibe website link.
+It acts as a digital identity of the project.
+</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  </main>
+  <footer class="footer">made with <span class="gradient-text">vibes</span> · 2025</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
