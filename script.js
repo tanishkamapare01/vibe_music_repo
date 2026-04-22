@@ -139,43 +139,50 @@ function hideBack() {
   document.getElementById("stressedBtn").onclick = () => showMood("stressed");
   document.getElementById("boredBtn").onclick = () => showMood("bored");
 
-  backBtn.onclick = function () { 
+ backBtn.onclick = function () {
+  const resultSection = document.getElementById("resultSection");
+  const feedbackSection = document.getElementById("feedbackSection");
+  const loginSection = document.getElementById("loginSection");
+  const setupSection = document.getElementById("setupSection");
+  const landing = document.getElementById("landing");
 
-  // RESULT → LANDING
-  if (!document.getElementById("resultSection").classList.contains("hidden")) {
-    document.getElementById("resultSection").classList.add("hidden");
+  // feedback page → hide feedback
+  if (!feedbackSection.classList.contains("hidden")) {
+    feedbackSection.classList.add("hidden");
     hideBack();
     return;
   }
 
-  // SETUP → LOGIN
-  if (document.getElementById("setupSection").style.display === "block") {
-    document.getElementById("setupSection").style.display = "none";
-    document.getElementById("loginSection").style.display = "block";
+  // visit page → hide visit, go back to vibes/result page
+  if (!visitSection.classList.contains("hidden")) {
+    visitSection.classList.add("hidden");
     hideBack();
     return;
   }
 
-  // LANDING → LOGIN
-  if (document.getElementById("landing").style.display === "block") {
-    document.getElementById("landing").style.display = "none";
-    document.getElementById("loginSection").style.display = "block";
+  // result page → hide result
+  if (!resultSection.classList.contains("hidden")) {
+    resultSection.classList.add("hidden");
+    hideBack();
+    return;
+  }
+
+  // setup page → login
+  if (setupSection.style.display === "block") {
+    setupSection.style.display = "none";
+    loginSection.style.display = "block";
+    hideBack();
+    return;
+  }
+
+  // landing page → login
+  if (landing.style.display === "block") {
+    landing.style.display = "none";
+    loginSection.style.display = "block";
     document.getElementById("profileCard").style.display = "none";
     hideBack();
+    return;
   }
-  
-  const themeBtn = document.getElementById("themeToggle");
-
-themeBtn.onclick = function () {
-  document.body.classList.toggle("dark");
-
-  if (document.body.classList.contains("dark")) {
-    themeBtn.innerText = "☀️";
-  } else {
-    themeBtn.innerText = "🌙";
-  }
-  
-};
 };
 // ✅ NAVIGATION (CORRECT PLACE)
 
@@ -191,9 +198,10 @@ function showVibesArea() {
   document.getElementById("profileCard").style.display = "none";
 
   document.getElementById("resultSection").classList.remove("hidden");
-
   visitSection.classList.add("hidden");
   document.getElementById("feedbackSection").classList.add("hidden");
+
+  showBack();
 }
 document.getElementById("navMoods").onclick = function () {
   document.getElementById("landing").style.display = "block";
