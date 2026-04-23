@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const backBtn = document.getElementById("backBtn");
    const themeBtn = document.getElementById("themeToggle"); // ✅ FIX 1
-   hideBack();
+  
 
   // DARK MODE
   themeBtn.onclick = function () {
@@ -20,6 +20,7 @@ function showBack() {
 function hideBack() {
   backBtn.style.display = "none";
 }
+hideBack();
 
   // LOGIN
   document.getElementById("loginBtn").onclick = function () {
