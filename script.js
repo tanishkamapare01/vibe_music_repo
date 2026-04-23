@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  hideBack();
   const backBtn = document.getElementById("backBtn");
    const themeBtn = document.getElementById("themeToggle"); // ✅ FIX 1
 
@@ -139,51 +140,58 @@ function hideBack() {
   document.getElementById("stressedBtn").onclick = () => showMood("stressed");
   document.getElementById("boredBtn").onclick = () => showMood("bored");
 
- backBtn.onclick = function () {
-  const resultSection = document.getElementById("resultSection");
-  const feedbackSection = document.getElementById("feedbackSection");
-  const loginSection = document.getElementById("loginSection");
-  const setupSection = document.getElementById("setupSection");
+  backBtn.onclick = function () {
+
+  const login = document.getElementById("loginSection");
+  const setup = document.getElementById("setupSection");
   const landing = document.getElementById("landing");
+  const result = document.getElementById("resultSection");
+  const visit = document.getElementById("visitSection");
+  const feedback = document.getElementById("feedbackSection");
 
-  // feedback page → hide feedback
-  if (!feedbackSection.classList.contains("hidden")) {
-    feedbackSection.classList.add("hidden");
+  // SETUP → LOGIN
+  if (setup.style.display === "block") {
+    setup.style.display = "none";
+    login.style.display = "block";
     hideBack();
     return;
   }
 
-  // visit page → hide visit, go back to vibes/result page
-  if (!visitSection.classList.contains("hidden")) {
-    visitSection.classList.add("hidden");
-    hideBack();
-    return;
-  }
-
-  // result page → hide result
-  if (!resultSection.classList.contains("hidden")) {
-    resultSection.classList.add("hidden");
-    hideBack();
-    return;
-  }
-
-  // setup page → login
-  if (setupSection.style.display === "block") {
-    setupSection.style.display = "none";
-    loginSection.style.display = "block";
-    hideBack();
-    return;
-  }
-
-  // landing page → login
+  // LANDING (MOODS) → SETUP
   if (landing.style.display === "block") {
     landing.style.display = "none";
-    loginSection.style.display = "block";
-    document.getElementById("profileCard").style.display = "none";
-    hideBack();
+    setup.style.display = "block";
+    showBack();
+    return;
+  }
+
+  // RESULT (VIBES) → LANDING
+  if (!result.classList.contains("hidden")) {
+    result.classList.add("hidden");
+    landing.style.display = "block";
+    showBack();
+    return;
+  }
+
+  // VISIT → RESULT
+  if (!visit.classList.contains("hidden")) {
+    visit.classList.add("hidden");
+    result.classList.remove("hidden");
+    showBack();
+    return;
+  }
+
+  // FEEDBACK → LANDING
+  if (!feedback.classList.contains("hidden")) {
+    feedback.classList.add("hidden");
+    landing.style.display = "block";
+    showBack();
     return;
   }
 };
+ 
+
+  
 // ✅ NAVIGATION (CORRECT PLACE)
 
 
