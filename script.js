@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  hideBack();
   const backBtn = document.getElementById("backBtn");
    const themeBtn = document.getElementById("themeToggle"); // ✅ FIX 1
 
