@@ -27,13 +27,49 @@ hideBack();
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    if (email === "" || password === "") {
-      alert("please enter email and password");
-    } else {
-      document.getElementById("loginSection").style.display = "none";
-      document.getElementById("setupSection").style.display = "block";
-       showBack();
-    }
+    const name = prompt("Enter your full name:");
+    const mobile = prompt("Enter your mobile number:");
+
+
+// EMPTY CHECK
+if (!name || !email || !mobile) {
+  alert("Please fill all fields");
+  return;
+}
+
+// NAME VALIDATION (only letters + spaces)
+const nameRegex = /^[A-Za-z ]{2,}$/;
+if (!nameRegex.test(name)) {
+  alert("Invalid Name (only letters allowed, min 2 characters)");
+  return;
+}
+
+// MOBILE VALIDATION (10 digits)
+const mobileRegex = /^[0-9]{10}$/;
+if (!mobileRegex.test(mobile)) {
+  alert("Invalid Mobile Number (must be 10 digits)");
+  return;
+}
+
+// EMAIL VALIDATION
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (!emailRegex.test(email)) {
+  alert("Invalid Email Format");
+  return;
+}
+
+
+// SUCCESS
+alert("Login Successful 🎉 Welcome " + name);
+
+// continue flow
+
+document.getElementById("loginSection").style.display = "none";
+document.getElementById("welcomeSection").classList.remove("hidden");
+
+document.getElementById("welcomeText").innerText =
+  "Welcome " + name + " 💜";
+showBack(); 
   };
 
   // SIGNUP
@@ -110,6 +146,8 @@ hideBack();
 
   // 🎬 SHOW MOOD
   function showMood(mood) {
+    
+
     const data = moodData[mood];
 
     document.getElementById("resultSection").classList.remove("hidden");
@@ -256,9 +294,48 @@ document.getElementById("navFeedback").onclick = function () {
 
   document.getElementById("feedbackSection").scrollIntoView({
     behavior: "smooth"
+
+    
+
   });
 };
 
+document.getElementById("goToAppBtn").onclick = function () {
+  document.getElementById("welcomeSection").classList.add("hidden");
+  document.getElementById("setupSection").style.display = "block";
+  showBack();
+};
+
+document.getElementById("submitFeedbackBtn").onclick = function () {
+
+  const name = document.getElementById("fbName").value;
+  const email = document.getElementById("fbEmail").value;
+  const issue = document.getElementById("fbIssue").value;
+
+  // VALIDATION
+  if (!name || !email || !issue) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  // SUCCESS FLOW
+
+  // 1️⃣ HIDE FORM
+  document.getElementById("feedbackFormBox").classList.add("hidden");
+
+  // 2️⃣ CLEAR INPUTS
+  document.getElementById("fbName").value = "";
+  document.getElementById("fbEmail").value = "";
+  document.getElementById("fbIssue").value = "";
+
+  // 3️⃣ SHOW MESSAGE ON PAGE (NOT ALERT ONLY)
+  const feedbackAck = document.getElementById("feedbackAck");
+  feedbackAck.innerText = "Thank you " + name + " 💜 We got your feedback!";
+  feedbackAck.classList.remove("hidden");
+
+  
+
+};
 
 });
 
@@ -301,24 +378,13 @@ document.getElementById("likeBtn").onclick = function () {
 
 // 👎 NOT REALLY CLICK
 document.getElementById("dislikeBtn").onclick = function () {
-  feedbackButtons.classList.add("hidden");   // hide buttons
 
-  feedbackIssueBox.classList.remove("hidden"); // show textbox
+  feedbackButtons.classList.add("hidden");
+
+  document.getElementById("feedbackFormBox").classList.remove("hidden");
+
   feedbackAck.classList.add("hidden");
-};
 
-document.getElementById("sendIssueBtn").onclick = function () {
-  const txt = document.getElementById("feedbackIssue").value;
-
-  if (txt === "") {
-    alert("Please write your issue first");
-    return;
-  }
-
-  feedbackIssueBox.classList.add("hidden"); // hide textbox
-
-  feedbackAck.innerText = "Thanks, we got your feedback 🌸";
-  feedbackAck.classList.remove("hidden");
 };
 
 

@@ -150,6 +150,18 @@
   </div>
 </section>
 
+<div id="welcomeSection" class="login hidden">
+  <div class="login-card glass-strong">
+    <h2>🎉 Congratulations!</h2>
+    <p id="welcomeText">Login Successful</p>
+    <p>Welcome to Vibe — Mood Music App 💜</p>
+
+    <button class="btn btn-primary" id="goToAppBtn">
+      Enter App 🚀
+    </button>
+  </div>
+</div>
+
    
 
     <section id="feedbackSection" class="feedback hidden">
@@ -161,13 +173,21 @@
       <button id="likeBtn" type="button" class="btn btn-primary feedback-btn">yes</button>
       <button id="dislikeBtn" type="button" class="btn btn-ghost feedback-btn">not really</button>
     </div>
+    <div id="feedbackFormBox" class="hidden">
+
+  <input type="text" id="fbName" placeholder="Enter your name" />
+  
+  <input type="email" id="fbEmail" placeholder="Enter your email" />
+  
+  <textarea id="fbIssue" placeholder="Write your issue..."></textarea>
+  
+  <button id="submitFeedbackBtn">Submit Feedback</button>
+
+</div>
 
     <p id="feedbackAck" class="feedback-ack hidden"></p>
 
-    <div id="feedbackIssueBox" class="feedback-issue hidden">
-      <textarea id="feedbackIssue" placeholder="Tell us what went wrong?"></textarea>
-      <button id="sendIssueBtn" type="button" class="btn btn-primary">Send</button>
-    </div>
+   
   </div>
 </section>
 

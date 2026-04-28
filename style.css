@@ -595,3 +595,25 @@ body.dark .feedback-issue textarea {
 .visit-right {
   color: var(--text);
 }
+#feedbackFormBox {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#feedbackFormBox input,
+#feedbackFormBox textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+#feedbackFormBox button {
+  background: purple;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
